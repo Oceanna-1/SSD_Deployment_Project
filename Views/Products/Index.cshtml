@@ -1,0 +1,59 @@
+@model IEnumerable<SSD_Lab2.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductMaterial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginLocation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ProductCost)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ProductColor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ProductMaterial)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.OriginLocation)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
