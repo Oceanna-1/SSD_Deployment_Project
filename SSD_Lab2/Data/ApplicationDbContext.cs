@@ -8,5 +8,6 @@ namespace SSD_Lab2.Data {
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

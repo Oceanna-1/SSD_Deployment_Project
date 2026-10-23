@@ -258,6 +258,25 @@ namespace SSD_Lab2.Data.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("SSD_Lab2.Models.Message", b =>
+                {
+                    b.Property<Guid>("messageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("messageId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("SSD_Lab2.Models.Product", b =>
                 {
                     b.Property<int>("Id")

@@ -1,0 +1,130 @@
+@using System.Security.Claims
+@model IEnumerable<SSD_Lab2.Models.Message>
+
+@{
+    ViewData["Title"] = "Messages";
+
+    var userNames = ViewBag.UserNames
+        as Dictionary<Guid, string>
+        ?? new Dictionary<Guid, string>();
+
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
+<h1>Messages</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table message-table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="message-container">
+
+                        <!-- Username -->
+                        <div class="message-username">
+                            @(userNames.TryGetValue(item.userId, out var name)
+                                ? name
+                                : "Unknown User")
+                        </div>
+
+                        <!-- Message content -->
+                        <div class="message-content">
+                            @item.message
+                        </div>
+
+                        <!-- Edit and Delete icons -->
+                        @if (item.userId.ToString().Equals(
+                            currentUserId,
+                            StringComparison.OrdinalIgnoreCase))
+                        {
+                            <div class="message-actions">
+
+                                <a asp-action="Edit"
+                                   asp-route-messageid="@item.messageId"
+                                   class="edit-icon"
+                                   title="Edit message"
+                                   aria-label="Edit message">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-messageid="@item.messageId"
+                                   class="delete-icon"
+                                   title="Delete message"
+                                   aria-label="Delete message">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        }
+
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .message-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .message-table td {
+        padding: 18px 8px;
+        border-bottom: 1px solid #999;
+    }
+
+    .message-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .message-username {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .message-content {
+        font-size: 16px;
+        font-weight: normal;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        margin-bottom: 12px;
+    }
+
+    .message-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .edit-icon {
+        color: #555;
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .delete-icon {
+        color: #dc3545;
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .edit-icon:hover {
+        color: #0d6efd;
+    }
+
+    .delete-icon:hover {
+        color: #a71d2a;
+    }
+</style>

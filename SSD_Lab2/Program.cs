@@ -1,8 +1,9 @@
+using Azure.Identity;
+using Humanizer.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using SSD_Lab2.Data;
-using Azure.Identity;
 
 namespace SSD_Lab2 {
     public class Program {
@@ -22,14 +23,16 @@ namespace SSD_Lab2 {
 
 
             builder.Services.AddControllersWithViews();
-            var kvuri = new Uri(builder.Configuration.GetSection("KVURI").Value);
-            var azcred = new DefaultAzureCredential();
+            //var kvuri = new Uri(builder.Configuration.GetSection("KVURI").Value);
+            //var azcred = new DefaultAzureCredential();
 
-            builder.Configuration.AddAzureKeyVault(kvuri, azcred);
+            //builder.Configuration.AddAzureKeyVault(kvuri, azcred);
             DbInitializer.employeePassword = 
                 builder.Configuration.GetSection("secret-employee-cred").Value;
             DbInitializer.supervisorPassword =
                 builder.Configuration.GetSection("secret-supervisor-cred").Value;
+
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
