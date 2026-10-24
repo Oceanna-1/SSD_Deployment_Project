@@ -24,44 +24,47 @@
             <tr>
                 <td>
                     <div class="message-container">
+                        <div class="message-username-container">
+                            <!-- Username -->
+                            <div class="message-username">
+                                @(userNames.TryGetValue(item.userId, out var name)
+                                    ? name
+                                    : "Unknown User")
+                            </div>
 
-                        <!-- Username -->
-                        <div class="message-username">
-                            @(userNames.TryGetValue(item.userId, out var name)
-                                ? name
-                                : "Unknown User")
+                        
+                            <!-- Edit and Delete icons -->
+                            @if (item.userId.ToString().Equals(
+                                currentUserId,
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="message-actions">
+
+                                    <a asp-action="Edit"
+                                       asp-route-messageid="@item.messageId"
+                                       class="edit-icon"
+                                       title="Edit message"
+                                       aria-label="Edit message">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-messageid="@item.messageId"
+                                       class="delete-icon"
+                                       title="Delete message"
+                                       aria-label="Delete message">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+
+                                </div>
+                            }
                         </div>
+
 
                         <!-- Message content -->
                         <div class="message-content">
                             @item.message
                         </div>
-
-                        <!-- Edit and Delete icons -->
-                        @if (item.userId.ToString().Equals(
-                            currentUserId,
-                            StringComparison.OrdinalIgnoreCase))
-                        {
-                            <div class="message-actions">
-
-                                <a asp-action="Edit"
-                                   asp-route-messageid="@item.messageId"
-                                   class="edit-icon"
-                                   title="Edit message"
-                                   aria-label="Edit message">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-
-                                <a asp-action="Delete"
-                                   asp-route-messageid="@item.messageId"
-                                   class="delete-icon"
-                                   title="Delete message"
-                                   aria-label="Delete message">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-
-                            </div>
-                        }
 
                     </div>
                 </td>
@@ -87,6 +90,18 @@
         width: 100%;
     }
 
+    .message-username-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .message-username {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
     .message-username {
         font-size: 16px;
         font-weight: bold;
@@ -96,7 +111,6 @@
     .message-content {
         font-size: 16px;
         font-weight: normal;
-        white-space: pre-wrap;
         overflow-wrap: anywhere;
         margin-bottom: 12px;
     }

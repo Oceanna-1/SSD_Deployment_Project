@@ -27,7 +27,7 @@ namespace SSD_Lab2 {
             //var azcred = new DefaultAzureCredential();
 
             //builder.Configuration.AddAzureKeyVault(kvuri, azcred);
-            // DbInitializer.employeePassword = 
+            // DbInitializer.employeePassword =
             //    builder.Configuration.GetSection("secret-employee-cred").Value;
             //DbInitializer.supervisorPassword =
             //    builder.Configuration.GetSection("secret-supervisor-cred").Value;
@@ -37,7 +37,7 @@ namespace SSD_Lab2 {
             var app = builder.Build();
             var configuration = app.Services.GetService<IConfiguration>();
             var hostingEnvironment = app.Services.GetService<IWebHostEnvironment>(); //used to pull the environment (development, production etc)
-            var secrets = configuration.GetSection("Secrets").Get<AppSecrets>();
+            var secrets = configuration.GetSection("AppSecrets").Get<AppSecrets>();
             DbInitializer.appSecrets = secrets;
             using ( var scope = app.Services.CreateScope() ) {
                 DbInitializer.SeedUsersAndRoles(scope.ServiceProvider).Wait();
