@@ -1,0 +1,65 @@
+@model IEnumerable<SSD_Lab2.Models.Service>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationInMinutes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiresDeposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxBookingsPerDay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ServiceCost)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ServiceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DurationInMinutes)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RequiresDeposit)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.MaxBookingsPerDay)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
