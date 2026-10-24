@@ -15,6 +15,7 @@ namespace SSD_Lab2.Data
         public static string employeePassword;
         public static string supervisorPassword;
 
+
         public static async Task<int> SeedUsersAndRoles(IServiceProvider serviceProvider)
         {
             // create the database if it doesn't exist
